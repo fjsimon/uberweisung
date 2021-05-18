@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "97f788c6-85ed-4775-b406-fb2a54f6bde3",
+		"name": "wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all wallets",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Typ",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyX2pvZSIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU4Mzg3Mzk4MywiZXhwIjoxNTgzODc0NTgzfQ.bC8-0efn38OGbqmhEVm3R3B9HA78mH8SK7GdYK8pm9o"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/wallets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get wallet by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Typ",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyX2pvZSIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU4Mzg3Mzk4MywiZXhwIjoxNTgzODc0NTgzfQ.bC8-0efn38OGbqmhEVm3R3B9HA78mH8SK7GdYK8pm9o"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/wallets/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallets",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get transactions by wallet id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Typ",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyX2pvZSIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU4Mzg3Mzk4MywiZXhwIjoxNTgzODc0NTgzfQ.bC8-0efn38OGbqmhEVm3R3B9HA78mH8SK7GdYK8pm9o"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/wallets/3/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wallets",
+						"3",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get global id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyX2pvZSIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU4Mzg3MzI2OSwiZXhwIjoxNTgzODczODY5fQ.Zam5vBctzl-LVRrHoxZrY3iR6t0SocfIcSE2RLyDZ0A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/uberweisung/account/globalId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uberweisung",
+						"account",
+						"globalId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyX2pvZSIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU4Mzg3MzI2OSwiZXhwIjoxNTgzODczODY5fQ.Zam5vBctzl-LVRrHoxZrY3iR6t0SocfIcSE2RLyDZ0A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"user_joe\",\n\t\"globalId\":\"c308448c-e465-3190-949b-ba767b079f40\",\n\t\"amount\": 200,\n\t\"transactionType\": \"D\",\n\t\"description\": \"credit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/uberweisung/account/3/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uberweisung",
+						"account",
+						"3",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"user_joe\",\n\t\"password\":\"letmein\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/signin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
