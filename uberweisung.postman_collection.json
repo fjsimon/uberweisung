@@ -16,7 +16,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer token"
+						"value": "token"
 					}
 				],
 				"url": {
@@ -44,7 +44,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer token"
+						"value": "token"
 					}
 				],
 				"url": {
@@ -73,7 +73,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer token"
+						"value": "token"
 					}
 				],
 				"url": {
@@ -108,7 +108,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer token",
+						"value": "token",
 						"type": "text"
 					}
 				],
@@ -149,13 +149,13 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer token",
+						"value": "token",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"user_joe\",\n\t\"globalId\":\"c308448c-e465-3190-949b-ba767b079f40\",\n\t\"amount\": 200,\n\t\"transactionType\": \"D\",\n\t\"description\": \"credit\"\n}",
+					"raw": "{\n\t\"username\":\"usernamq\",\n\t\"globalId\":\"globalId\",\n\t\"amount\": 200,\n\t\"transactionType\": \"D\",\n\t\"description\": \"credit\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -192,7 +192,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"user_joe\",\n\t\"password\":\"letmein\"\n}",
+					"raw": "{\n\t\"username\":\"username\",\n\t\"password\":\"password\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
