@@ -4,14 +4,12 @@ import com.fjsimon.uberweisung.domain.service.request.CreateTransactionRequest;
 import com.fjsimon.uberweisung.domain.service.response.CreateTransactionResponse;
 import com.fjsimon.uberweisung.domain.service.response.GetTransactionResponse;
 import com.fjsimon.uberweisung.service.UberweisungService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,8 +21,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpMethod.POST;
 
-
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UberweisungControllerTest {
 
