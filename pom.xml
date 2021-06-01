@@ -246,14 +246,17 @@
 
                 <configuration>
                     <skipTests>false</skipTests>
-                    <mutationThreshold>29</mutationThreshold>
-                    <coverageThreshold>83</coverageThreshold>
+                    <mutationThreshold>70</mutationThreshold>
+                    <coverageThreshold>90</coverageThreshold>
                     <targetClasses>
                         <param>com.fjsimon.uberweisung*</param>
                     </targetClasses>
                     <targetTests>
                         <param>com.fjsimon.uberweisung*</param>
                     </targetTests>
+                    <excludedClasses>
+                        <param>com.fjsimon.uberweisung.domain*</param>
+                    </excludedClasses>
                     <outputFormats>
                         <outputFormat>HTML</outputFormat>
                     </outputFormats>
