@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpMethod.POST;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UberweisungControllerTest {
+public class UberweisungControllerIntegrationTest {
 
 
     @Autowired

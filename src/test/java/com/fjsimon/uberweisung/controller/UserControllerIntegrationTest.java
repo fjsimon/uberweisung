@@ -31,7 +31,7 @@ import static org.springframework.http.HttpMethod.POST;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerTest {
+public class UserControllerIntegrationTest {
 
     private LoginRequest signupDto = new LoginRequest("larry", "1234", "larry", "miller");
     private UserResponse userResponse = UserResponse.builder().username("larry")
