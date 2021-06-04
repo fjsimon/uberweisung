@@ -46,7 +46,7 @@ public class CheckCreateTransactionValidator implements ConstraintValidator<Chec
 
             return error(context, "{operation.not.permitted}");
 
-        } else if(!checkGlobalId(request)) {
+        } else if(!checkGlobalId(request, wallet)) {
 
             return error(context, "{global.id.mismatch}");
 
@@ -57,7 +57,10 @@ public class CheckCreateTransactionValidator implements ConstraintValidator<Chec
 
     private boolean checkBalance(CreateTransactionRequest request, Optional<Wallet> wallet) {
 
-        BigDecimal transactionAmount = isCredit(request) ? request.getAmount().abs() : request.getAmount().abs().negate();
+        BigDecimal transactionAmount = isCredit(request) ?
+                request.getAmount().abs() :
+                request.getAmount().abs().negate();
+
         return (isCredit(request) || (wallet.isPresent() && wallet.get().getBalance().compareTo(transactionAmount.abs()) >= 0));
     }
 
@@ -71,21 +74,20 @@ public class CheckCreateTransactionValidator implements ConstraintValidator<Chec
         return (wallet.isPresent() && user.isPresent()) ? wallet.get().getUserId().equals(user.get().getId()) : false;
     }
 
-    private boolean checkGlobalId(CreateTransactionRequest request) {
+    private boolean checkGlobalId(CreateTransactionRequest request, Optional<Wallet> wallet) {
 
-        Optional<Wallet> w = walletRepository.findById(request.getWalletId());
         StringBuilder builder = new StringBuilder();
-        if(w.isPresent()) {
-            builder.append(w.get().getId().toString())
-                    .append(w.get().getBalance().toString())
-                    .append(w.get().getLastUpdated().toString());
+        if(wallet.isPresent()) {
+            builder.append(wallet.get().getId().toString())
+                    .append(wallet.get().getBalance().toString())
+                    .append(wallet.get().getLastUpdated().toString());
         }
 
         return UUID.nameUUIDFromBytes(builder.toString().getBytes()).toString()
                 .equalsIgnoreCase(request.getGlobalId());
     }
 
-    private boolean error(ConstraintValidatorContext context, String message){
+    private boolean error(ConstraintValidatorContext context, String message) {
 
         context.disableDefaultConstraintViolation();
         context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
