@@ -75,7 +75,6 @@ public class UberweisungServiceImpl implements UberweisungService {
     }
 
     @Override
-    @Transactional
     public String generateGlobalId() {
 
         byte[] buffer = new byte[20];

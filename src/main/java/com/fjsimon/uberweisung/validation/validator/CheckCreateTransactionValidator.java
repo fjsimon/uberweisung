@@ -46,11 +46,11 @@ public class CheckCreateTransactionValidator implements ConstraintValidator<Chec
 
             return error(context, "{operation.not.permitted}");
 
-        } else if(!checkGlobalId(request, wallet)) {
-
-            return error(context, "{global.id.mismatch}");
-
         }
+
+//        else if(!checkGlobalId(request, wallet)) {
+//            return error(context, "{global.id.mismatch}");
+//        }
 
         return true;
     }
@@ -74,18 +74,18 @@ public class CheckCreateTransactionValidator implements ConstraintValidator<Chec
         return (wallet.isPresent() && user.isPresent()) ? wallet.get().getUserId().equals(user.get().getId()) : false;
     }
 
-    private boolean checkGlobalId(CreateTransactionRequest request, Optional<Wallet> wallet) {
-
-        StringBuilder builder = new StringBuilder();
-        if(wallet.isPresent()) {
-            builder.append(wallet.get().getId().toString())
-                    .append(wallet.get().getBalance().toString())
-                    .append(wallet.get().getLastUpdated().toString());
-        }
-
-        return UUID.nameUUIDFromBytes(builder.toString().getBytes()).toString()
-                .equalsIgnoreCase(request.getGlobalId());
-    }
+//    private boolean checkGlobalId(CreateTransactionRequest request, Optional<Wallet> wallet) {
+//
+//        StringBuilder builder = new StringBuilder();
+//        if(wallet.isPresent()) {
+//            builder.append(wallet.get().getId().toString())
+//                    .append(wallet.get().getBalance().toString())
+//                    .append(wallet.get().getLastUpdated().toString());
+//        }
+//
+//        return UUID.nameUUIDFromBytes(builder.toString().getBytes()).toString()
+//                .equalsIgnoreCase(request.getGlobalId());
+//    }
 
     private boolean error(ConstraintValidatorContext context, String message) {
 
