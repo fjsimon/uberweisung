@@ -6,9 +6,12 @@ import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
@@ -25,6 +28,7 @@ public class ExceptionHandlerController {
 
     @Bean
     public ErrorAttributes errorAttributes() {
+
         return new DefaultErrorAttributes() {
 
             @Override
@@ -38,22 +42,20 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(AccessDeniedException.class)
     public void handleAccessDeniedException(AccessDeniedException ex, HttpServletResponse res) throws IOException {
-        res.sendError(HttpStatus.FORBIDDEN.value(), "Access denied");
-    }
 
-    @ExceptionHandler(HttpServerErrorException.class)
-    public void handleHttpServerErrorException(HttpServerErrorException ex, HttpServletResponse res) throws IOException {
-        res.sendError(ex.getStatusCode().value(),ex.getMessage());
+        res.sendError(HttpStatus.FORBIDDEN.value(), "Access denied");
     }
 
     @ExceptionHandler(InsufficientAuthenticationException.class)
     public void handleInsufficientAuthenticationException(InsufficientAuthenticationException ex, HttpServletResponse res) throws IOException {
+
         LOGGER.error("Handled Insufficient Authentication Exception", ex);
         res.sendError(HttpStatus.FORBIDDEN.value(), "Insufficient Authentication");
     }
 
     @ExceptionHandler(Exception.class)
     public void handleException(Exception ex, HttpServletResponse res) throws IOException {
+
         LOGGER.error("Handled Internal Error Exception", ex);
         res.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Something went wrong");
     }
@@ -63,6 +65,27 @@ public class ExceptionHandlerController {
 
         LOGGER.error("Handled Constraint Violation Exception", ex);
         res.sendError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(ArithmeticException.class)
+    public void handleArithmeticException(ArithmeticException ex,  HttpServletResponse res) throws IOException {
+
+        LOGGER.error("ArithmeticException");
+        res.sendError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public void handleValidationErrors(MethodArgumentNotValidException ex, HttpServletResponse res) throws IOException {
+
+        LOGGER.error("MethodArgumentNotValidException", ex);
+        res.sendError(HttpStatus.BAD_REQUEST.value(), "Argument Not Valid");
+    }
+
+    @ExceptionHandler(HttpServerErrorException.class)
+    public void handleHttpServerErrorException(HttpServerErrorException ex, HttpServletResponse res) throws IOException {
+
+        LOGGER.error("HttpServerErrorException", ex);
+        res.sendError(ex.getStatusCode().value(),ex.getMessage());
     }
 }
 
