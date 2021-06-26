@@ -114,46 +114,53 @@ public class ReferenceRatesControllerTest {
         assertThat(restResponse.getStatusCode().toString(), is("400 BAD_REQUEST"));
     }
 
+    @Test
+    public void validation_convert_date_bad_request() throws Exception {
 
-//        this.mockMvc.perform(get("/reference/rates/convert")
-//                .param("date", "wrong")
-//                .param("source", "JPY")
-//                .param("target", "DKK")
-//                .param("amount", "100.0"))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest())
-//                .andExpect(jsonPath("$").hasJsonPath())
-//                .andExpect(jsonPath("$").value("convert.date: date format invalid [yyyy-MM-dd]"));
-//
-//        this.mockMvc.perform(get("/reference/rates/convert")
-//                .param("date", "2020-09-14")
-//                .param("source", "BLA")
-//                .param("target", "DKK")
-//                .param("amount", "100.0"))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest())
-//                .andExpect(jsonPath("$").hasJsonPath())
-//                .andExpect(jsonPath("$").value("convert.source: currency [BLA] is invalid"));
-//
-//        this.mockMvc.perform(get("/reference/rates/convert")
-//                .param("date", "2020-09-14")
-//                .param("source", "JPY")
-//                .param("target", "BLO")
-//                .param("amount", "100.0"))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest())
-//                .andExpect(jsonPath("$").hasJsonPath())
-//                .andExpect(jsonPath("$").value("convert.target: currency [BLO] is invalid"));
-//
-//        this.mockMvc.perform(get("/reference/rates/convert")
-//                .param("date", "2020-09-14")
-//                .param("source", "JPY")
-//                .param("target", "DKK")
-//                .param("amount", "WRONG"))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest())
-//                .andExpect(jsonPath("$").hasJsonPath())
-//                .andExpect(jsonPath("$").value("convert.amount: amount format invalid"));
+        HttpEntity entity = new HttpEntity(jwtRequestHelper.withRole("ROLE_ADMIN"));
+
+        ResponseEntity<HashMap> restResponse = restTemplate.exchange("/reference/rates/convert" +
+                        "?date={date}&source={source}&target={target}&amount={amount}",
+                HttpMethod.GET, entity, HashMap.class, "wrong", "JPY", "DKK", "100.0");
+
+        assertThat(restResponse.getStatusCode().toString(), is("400 BAD_REQUEST"));
+    }
+
+    @Test
+    public void validation_convert_source_bad_request() throws Exception {
+
+        HttpEntity entity = new HttpEntity(jwtRequestHelper.withRole("ROLE_ADMIN"));
+
+        ResponseEntity<HashMap> restResponse = restTemplate.exchange("/reference/rates/convert" +
+                        "?date={date}&source={source}&target={target}&amount={amount}",
+                HttpMethod.GET, entity, HashMap.class, "2020-09-14", "BLA", "DKK", "100.0");
+
+        assertThat(restResponse.getStatusCode().toString(), is("400 BAD_REQUEST"));
+    }
+
+    @Test
+    public void validation_convert_target_bad_request() throws Exception {
+
+        HttpEntity entity = new HttpEntity(jwtRequestHelper.withRole("ROLE_ADMIN"));
+
+        ResponseEntity<HashMap> restResponse = restTemplate.exchange("/reference/rates/convert" +
+                        "?date={date}&source={source}&target={target}&amount={amount}",
+                HttpMethod.GET, entity, HashMap.class, "2020-09-14", "JPY", "BLO", "100.0");
+
+        assertThat(restResponse.getStatusCode().toString(), is("400 BAD_REQUEST"));
+    }
+
+    @Test
+    public void validation_convert_amount_bad_request() throws Exception {
+
+        HttpEntity entity = new HttpEntity(jwtRequestHelper.withRole("ROLE_ADMIN"));
+
+        ResponseEntity<HashMap> restResponse = restTemplate.exchange("/reference/rates/convert" +
+                        "?date={date}&source={source}&target={target}&amount={amount}",
+                HttpMethod.GET, entity, HashMap.class, "2020-09-14", "JPY", "DKK", "wrong");
+
+        assertThat(restResponse.getStatusCode().toString(), is("400 BAD_REQUEST"));
+    }
 
     @Test
     public void isBetweenDatesTest() {
