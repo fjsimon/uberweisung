@@ -31,3 +31,38 @@ JWT.IO (https://jwt.io/)  allows you to decode, verify and generate JWT.
 1. Build the project by running the following command thought terminal: mvn clean install -U
 
 2. Start application by running the following command thought terminal: mvn spring-boot:run
+
+# reference-rates by fjsimon
+
+https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+
+## Build
+
+mvn clean install
+
+## Run
+
+mvn spring-boot:run
+
+## Tasks / Endpoints
+
+* Allows an API caller to retrieve the reference rate data for a given 
+Date for all available Currencies.
+
+http://localhost:8080/reference/rates?date=2020-09-10
+
+* Given a Date, source Currency (eg. JPY), target Currency (eg. DKK), 
+and an Amount, returns the Amount given converted from the first to the 
+second Currency as it would have been on that Date (assuming zero fees).
+
+http://localhost:8080/reference/rates/convert?date=2020-09-14&source=JPY&target=DKK&amount=1000
+
+* Given a start Date, an end Date and a Currency, return the highest reference 
+exchange rate that the Currency achieved for the period.
+
+http://localhost:8080/reference/rates/maximum?start=2010-09-10&end=2020-09-14&currency=GBP
+
+* Given a start Date, an end Date and a Currency, determine and return 
+the average reference exchange rate of that Currency for the period.
+
+http://localhost:8080/reference/rates/average?start=2010-09-10&end=2020-09-14&currency=GBP
