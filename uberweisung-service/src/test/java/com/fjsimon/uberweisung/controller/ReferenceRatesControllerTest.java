@@ -1,5 +1,12 @@
 package com.fjsimon.uberweisung.controller;
 
+import com.fasterxml.jackson.core.Base64Variants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fjsimon.uberweisung.domain.service.response.ReferenceRatesResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,9 +14,12 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import static com.fasterxml.jackson.databind.MapperFeature.USE_WRAPPER_NAME_AS_PROPERTY_NAME;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -173,5 +183,26 @@ public class ReferenceRatesControllerTest {
         assertThat(controller.isBetweenDates("2019-09-14", "2020-09-14", "2020-09-15"), is(false));
         assertThat(controller.isBetweenDates("2020-10-14", "2020-09-14", "2020-09-15"), is(false));
 
+    }
+
+    @Test
+    public void xmlMapperTest() throws JsonProcessingException {
+
+        RestTemplate restTemplate = new RestTemplate();
+        final String url = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+        String response = restTemplate.getForObject(url, String.class);
+
+        XmlMapper mapper = new XmlMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
+        mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+
+        System.out.println(response);
+
+        ReferenceRatesResponse value = mapper.readValue(response, ReferenceRatesResponse.class);
+
+        System.out.printf("Details : %n%s", value);
     }
 }
