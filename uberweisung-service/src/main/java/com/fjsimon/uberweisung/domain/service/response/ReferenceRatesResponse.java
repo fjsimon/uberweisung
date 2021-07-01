@@ -1,12 +1,9 @@
 package com.fjsimon.uberweisung.domain.service.response;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
-
-import java.util.HashMap;
 import java.util.List;
 
 @Data
@@ -31,6 +28,9 @@ public class ReferenceRatesResponse {
 
     @Data
     public static class CubeRoot {
+
+        @JacksonXmlProperty(isAttribute = true)
+        private String time;
 
         @JacksonXmlElementWrapper(localName = "Cube")
         private List<Cube> cube;

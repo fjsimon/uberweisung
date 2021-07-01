@@ -208,7 +208,6 @@ public class ReferenceRatesControllerTest {
         String response = restTemplate.getForObject(url, String.class);
 
         JacksonXmlModule module = new JacksonXmlModule();
-        module.setDefaultUseWrapper(false);
         XmlMapper xmlMapper = new XmlMapper(module);
         xmlMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -218,7 +217,7 @@ public class ReferenceRatesControllerTest {
         xmlMapper.enable(MapperFeature.USE_STD_BEAN_NAMING);
 
         ReferenceRatesResponse referenceRatesResponse = xmlMapper.readValue(response, ReferenceRatesResponse.class);
-        System.out.printf("Details : %n%s", referenceRatesResponse.toString());
+        System.out.printf("Details : %n%s%n", referenceRatesResponse.toString());
     }
 
 }
