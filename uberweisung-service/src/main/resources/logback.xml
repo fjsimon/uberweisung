@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
-    <property name="LOG_TEMP" value="./logs"/>
+
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
     <logger name="com.fjsimon.uberweisung" level="INFO"/>

@@ -1,6 +1,13 @@
 package com.fjsimon.uberweisung.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fjsimon.uberweisung.domain.service.response.ReferenceRatesResponse;
 import com.fjsimon.uberweisung.validation.BigDecimalFormat;
 import com.fjsimon.uberweisung.validation.CurrencyCheck;
 import com.fjsimon.uberweisung.validation.DateFormat;
@@ -14,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -96,6 +104,29 @@ public class ReferenceRatesController {
                 .mapToDouble(entry -> entry.getValue().doubleValue())
                 .average()
                 .orElse(0.0);
+    }
+
+
+    @GetMapping(value = "/now", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ReferenceRatesResponse referenceRates() throws JsonProcessingException {
+
+        LOGGER.info(String.format("GET /reference/rates/now"));
+
+        RestTemplate restTemplate = new RestTemplate();
+        final String url = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+        String response = restTemplate.getForObject(url, String.class);
+
+        JacksonXmlModule module = new JacksonXmlModule();
+        XmlMapper xmlMapper = new XmlMapper(module);
+        xmlMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        xmlMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
+        xmlMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
+        xmlMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+        xmlMapper.enable(MapperFeature.USE_STD_BEAN_NAMING);
+
+
+        return xmlMapper.readValue(response, ReferenceRatesResponse.class);
     }
 
     public boolean isBetweenDates(String date, String start, String end) {
