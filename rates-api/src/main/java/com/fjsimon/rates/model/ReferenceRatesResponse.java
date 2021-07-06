@@ -1,4 +1,4 @@
-package com.fjsimon.uberweisung.domain.service.response;
+package com.fjsimon.rates.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
