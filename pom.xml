@@ -9,6 +9,8 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>rates-api</module>
+        <module>rates-client</module>
         <module>uberweisung-service</module>
     </modules>
 
