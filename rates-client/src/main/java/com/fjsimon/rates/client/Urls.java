@@ -2,7 +2,7 @@ package com.fjsimon.rates.client;
 
 public final class Urls {
 
-    // base url = https://openlibrary.org/api
+    // baseUrl = https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
     public static final UrlBuilder.Spec GET_RATES = new UrlBuilder.Spec("#{baseUrl}");
 
     private Urls() {}
