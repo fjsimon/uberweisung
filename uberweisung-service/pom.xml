@@ -135,9 +135,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.11.1</version>
+            <groupId>com.fjsimon</groupId>
+            <artifactId>rates-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fjsimon</groupId>
+            <artifactId>rates-client</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -310,4 +316,13 @@
         </profile>
     </profiles>
 
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>nexus-repository</id>
+            <name>NexusRepository</name>
+            <url>file:///home/r00t/.m2</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 </project>

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fjsimon.uberweisung.domain.service.response.ReferenceRatesResponse;
+import com.fjsimon.rates.model.ReferenceRatesResponse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class ReferenceRatesControllerTest {
                 HttpMethod.GET, entity, String.class, "2020-09-10", "JPY", "DKK", "100.0");
 
         assertThat(restResponse.getStatusCode().toString(), is("200 OK"));
-        assertThat(restResponse.getBody().toString(), is("5.916348600508905852417302798982188000"));
+        assertThat(restResponse.getBody(), is("5.916348600508905852417302798982188000"));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class ReferenceRatesControllerTest {
                 HttpMethod.GET, entity, String.class, "2020-09-10", "2020-09-14", "DKK");
 
         assertThat(restResponse.getStatusCode().toString(), is("200 OK"));
-        assertThat(restResponse.getBody().toString(), is("7.4404"));
+        assertThat(restResponse.getBody(), is("7.4404"));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ReferenceRatesControllerTest {
                 HttpMethod.GET, entity, String.class, "2020-09-10", "2020-09-14", "DKK");
 
         assertThat(restResponse.getStatusCode().toString(), is("200 OK"));
-        assertThat(restResponse.getBody().toString(), is("7.440133333333333"));
+        assertThat(restResponse.getBody(), is("7.440133333333333"));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ReferenceRatesControllerTest {
                 HttpMethod.GET, entity, String.class, "1900-09-10", "1900-09-14", "DKK");
 
         assertThat(restResponse.getStatusCode().toString(), is("200 OK"));
-        assertThat(restResponse.getBody().toString(), is("0.0"));
+        assertThat(restResponse.getBody(), is("0.0"));
     }
 
     @Test
