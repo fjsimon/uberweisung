@@ -17,6 +17,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+
 import static org.springframework.util.Assert.notNull;
 
 @Configuration
@@ -24,6 +26,7 @@ import static org.springframework.util.Assert.notNull;
 public class ClientConfiguration {
 
     public static final String PROPERTY_URL = ".http.url";
+    public static final int TIMEOUT = 5000;
 
     @Autowired
     private Environment environment;
@@ -44,6 +47,8 @@ public class ClientConfiguration {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
 
+        builder.setConnectTimeout(Duration.ofMillis(TIMEOUT));
+        builder.setReadTimeout(Duration.ofMillis(TIMEOUT));
         return builder.build();
     }
 
