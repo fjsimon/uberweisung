@@ -1,7 +1,7 @@
 package com.fjsimon.rates.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
@@ -17,8 +17,8 @@ import java.util.Optional;
 public class RatesServiceCaller {
 
     @Autowired
-    @Qualifier("objectMapper")
-    private ObjectMapper mapper;
+    @Qualifier("xmlMapper")
+    private XmlMapper mapper;
 
     @Autowired
     @Qualifier("restTemplate")

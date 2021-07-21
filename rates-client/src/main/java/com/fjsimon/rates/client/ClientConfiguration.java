@@ -53,7 +53,7 @@ public class ClientConfiguration {
     }
 
     @Bean
-    public ObjectMapper objectMapper() {
+    public XmlMapper xmlMapper() {
 
         JacksonXmlModule module = new JacksonXmlModule();
         XmlMapper xmlMapper = new XmlMapper(module);

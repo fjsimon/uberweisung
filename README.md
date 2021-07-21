@@ -66,3 +66,7 @@ http://localhost:8080/reference/rates/maximum?start=2010-09-10&end=2020-09-14&cu
 the average reference exchange rate of that Currency for the period.
 
 http://localhost:8080/reference/rates/average?start=2010-09-10&end=2020-09-14&currency=GBP
+
+* Allows an API caller to retrieve the reference rate data (daily) for all available Currencies using a client.
+
+http://localhost:8080/reference/rates/daily

@@ -172,6 +172,20 @@ public class ReferenceRatesControllerTest {
     }
 
     @Test
+    public void rates_daily_request() throws Exception {
+
+        HttpEntity entity = new HttpEntity(jwtRequestHelper.withRole("ROLE_ADMIN"));
+
+        ResponseEntity<ReferenceRatesResponse> restResponse = restTemplate.exchange("/reference/rates/daily",
+                HttpMethod.GET, entity, ReferenceRatesResponse.class);
+
+        assertThat(restResponse.getStatusCode().toString(), is("200 OK"));
+        assertThat(restResponse.getBody().getSubject(), is("Reference rates"));
+        assertThat(restResponse.getBody().getSender().getName(), is("European Central Bank"));
+        assertThat(restResponse.getBody().getCube().getCube().size(), is(32));
+    }
+
+    @Test
     public void isBetweenDatesTest() {
 
         assertThat(controller.isBetweenDates("2020-09-14", "2020-09-14", "2020-09-15"), is(true));

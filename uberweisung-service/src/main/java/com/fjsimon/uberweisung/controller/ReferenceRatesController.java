@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -37,7 +34,10 @@ public class ReferenceRatesController {
     private RatesClient ratesClient;
 
     // 1) Allows an API caller to retrieve the reference rate data for a given Date for all available Currencies.
-    @GetMapping()
+    @GetMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
     public Map<String, BigDecimal> references(@DateFormat @RequestParam(value="date") String date) {
 
         LOGGER.info(String.format("GET /reference/rates?date=%s", date));
@@ -48,7 +48,11 @@ public class ReferenceRatesController {
     // 2) Given a Date, source Currency (eg. JPY), target Currency (eg. GBP), and an
     // Amount, returns the Amount given converted from the first to the second Currency as
     // it would have been on that Date (assuming zero fees).
-    @GetMapping(value = "/convert", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = "/convert",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
     public String convert(@DateFormat @RequestParam(value="date") String date,
                               @CurrencyCheck @RequestParam(value="source") String source,
                               @CurrencyCheck @RequestParam(value="target") String target,
@@ -70,7 +74,11 @@ public class ReferenceRatesController {
 
     // 3) Given a start Date, an end Date and a Currency, return the highest reference
     // exchange rate that the Currency achieved for the period.
-    @GetMapping(value = "/maximum", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = "/maximum",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
     public String max(@DateFormat @RequestParam(value="start") String start,
                       @DateFormat @RequestParam(value="end") String end,
                       @CurrencyCheck @RequestParam(value="currency") String currency) {
@@ -89,7 +97,11 @@ public class ReferenceRatesController {
 
     // 4) Given a start Date, an end Date and a Currency, determine and return the average
     // reference exchange rate of that Currency for the period.
-    @GetMapping(value = "/average", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = "/average",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
     public String avg(@DateFormat @RequestParam(value="start") String start,
                       @DateFormat @RequestParam(value="end") String end,
                       @CurrencyCheck @RequestParam(value="currency") String currency) {
@@ -107,10 +119,14 @@ public class ReferenceRatesController {
     }
 
 
-    @GetMapping(value = "/now", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ReferenceRatesResponse referenceRates() throws JsonProcessingException {
+    @GetMapping(
+            value = "/daily",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public ReferenceRatesResponse referenceRatesDaily() throws JsonProcessingException {
 
-        LOGGER.info(String.format("GET /reference/rates/now"));
+        LOGGER.info(String.format("GET /reference/rates/daily"));
 
         Optional<ReferenceRatesResponse> response = ratesClient.retrieveRates();
 
