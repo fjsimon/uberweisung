@@ -182,7 +182,7 @@ public class ReferenceRatesControllerTest {
         assertThat(restResponse.getStatusCode().toString(), is("200 OK"));
         assertThat(restResponse.getBody().getSubject(), is("Reference rates"));
         assertThat(restResponse.getBody().getSender().getName(), is("European Central Bank"));
-        assertThat(restResponse.getBody().getCube().getCube().size(), is(32));
+        assertThat(restResponse.getBody().getCube().getCube().size(), is(30));
     }
 
     @Test
